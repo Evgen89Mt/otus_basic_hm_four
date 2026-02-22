@@ -23,6 +23,7 @@ World::World(const std::string& worldFilePath) {
      * многократно - хорошо бы вынести это в функцию
      * и не дублировать код...
      */
+    // Тут идёт настройка окна
     stream >> topLeft.x >> topLeft.y >> bottomRight.x >> bottomRight.y;
     physics.setWorldBox(topLeft, bottomRight);
 
@@ -72,8 +73,19 @@ World::World(const std::string& worldFilePath) {
         // добавьте его в конец контейнера вызовом
         // balls.push_back(ball);
 
-        Ball ball;
+        // Ball ball;
 
+        Point pt(x,y);
+        Velocity vel(Point(vx,vy));
+        Color col(red, green, blue);
+
+        Ball ball(pt, vel, col, radius, isCollidable);
+        // ball.draw();
+        // ball.setVelocity(vel);
+        // ball.setColor(col);
+        // ball.setRadius(radius);
+        
+        balls.push_back(ball);
     }
 }
 
@@ -113,3 +125,7 @@ void World::update(double time) {
 
     physics.update(balls, ticks);
 }
+
+// static std::istream& operator>>(std::istream& is, Point& p){
+//     return is >> p.x >> p.y;
+// }
