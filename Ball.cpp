@@ -7,6 +7,10 @@
  */
 void Ball::setVelocity(const Velocity& velocity) {
     m_velocity = velocity;
+
+    // Point tmp{velocity.vector()};
+    // m_xv = tmp.x;
+    // m_yv = tmp.y;
 }
 
 /**
@@ -14,6 +18,7 @@ void Ball::setVelocity(const Velocity& velocity) {
  */
 Velocity Ball::getVelocity() const {
     return m_velocity;
+    // return Velocity{Point(m_xv,m_yv)};
 }
 
 /**
@@ -26,8 +31,19 @@ Velocity Ball::getVelocity() const {
  */
 void Ball::draw(Painter& painter) const {
     // TODO: место для доработки
-    //painter.draw();
+
+    std::cout << "Drawing ball at (" << m_point.x << ", " << m_point.y << ") radius " 
+    << m_radius << std::endl;
+
+    painter.draw(m_point, m_radius, m_color);
+    //void draw(const Point& center, double radius, const Color& color);
+
+    // Point pt(m_x,m_y);
+    // Color col(m_color_red, m_color_green, m_color_blue);
+    // painter.draw(pt, m_radius, col);
 }
+
+
 
 /**
  * Задает координаты центра объекта
@@ -36,7 +52,9 @@ void Ball::draw(Painter& painter) const {
 void Ball::setCenter(const Point& center) {
     // m_point.x = center.x;
     // m_point.y = center.y;
+
     m_point = center;
+    // m_x = center.x; m_y = center.y;
 }
 
 /**
@@ -44,6 +62,8 @@ void Ball::setCenter(const Point& center) {
  */
 Point Ball::getCenter() const {
     return m_point;
+
+    // return Point(m_x, m_y);
 }
 
 /**

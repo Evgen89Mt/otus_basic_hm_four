@@ -24,8 +24,11 @@
 примера), а в ходе работы программы увидим процесс симуляции столкновений
 шаров, завершающийся упорядоченной структурой.
 
-./physics ./data/elephant.txt (для начала)
-./physics ./data/smile.txt
+./physics ./data/elephant.txt (НЕТ)
+./physics ./Documents/cpp/home_works/otus_basic_hm_four/data/elephant.txt (НЕТ)
+./physics ../data/elephant.txt
+(для начала)
+./physics ../data/smile.txt
 
 1. World - класс считывает файл с данными о шарах:
    -  Point(x, y) — начальные координаты центра шара;

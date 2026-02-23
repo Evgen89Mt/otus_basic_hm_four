@@ -14,6 +14,10 @@ static constexpr double timePerTick = 0.001;
 World::World(const std::string& worldFilePath) {
 
     std::ifstream stream(worldFilePath);
+    if(!stream.is_open()){
+        std::cout << "Error: can't open file. path >> " << worldFilePath << std::endl;
+        return;
+    }
     /**
      * TODO: хорошее место для улучшения.
      * Чтение границ мира из модели
@@ -34,6 +38,7 @@ World::World(const std::string& worldFilePath) {
      * этот код, научившись читать сразу Point, Color...
      */
     double x;
+
     double y;
 
     double vx;      // abs
@@ -73,20 +78,23 @@ World::World(const std::string& worldFilePath) {
         // добавьте его в конец контейнера вызовом
         // balls.push_back(ball);
 
-        // Ball ball;
+        // Point pt(x,y);
+        // Velocity vel(Point(vx,vy));
+        // Color col(red, green, blue);
 
-        Point pt(x,y);
-        Velocity vel(Point(vx,vy));
-        Color col(red, green, blue);
+        // Ball ball(pt, vel, col, radius, isCollidable);
 
-        Ball ball(pt, vel, col, radius, isCollidable);
-        // ball.draw();
-        // ball.setVelocity(vel);
-        // ball.setColor(col);
-        // ball.setRadius(radius);
-        
+        Ball ball(x, y, vx, vy, red, green, blue, radius, isCollidable);
+        std::cout << "x, y >> " << x << ", " << y;
+        std::cout << "vx, vy " << vx << ", "<< vy;
+        std::cout << "red, green, blue, radius " << red << ", "<< green << ", " << blue;
+        std::cout << "radius, isCollidable " << radius << ", "<< isCollidable;
+
         balls.push_back(ball);
     }
+
+    return;
+    // show(painter);
 }
 
 /// @brief Отображает состояние мира
@@ -95,6 +103,7 @@ void World::show(Painter& painter) const {
     // мира
     painter.draw(topLeft, bottomRight, Color(1, 1, 1));
 
+    // std::cout << "World::show: " << balls.size() << " balls" << std::endl;
     // Вызываем отрисовку каждого шара
     for (const Ball& ball : balls) {
         ball.draw(painter);
