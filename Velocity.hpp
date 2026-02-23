@@ -2,6 +2,7 @@
 #include "Point.hpp"
 #include <cmath>
 
+
 class Velocity {
   public:
     inline Velocity() = default;
@@ -14,6 +15,7 @@ class Velocity {
     inline Velocity(double abs, double angle) {
         const double x = std::cos(angle);
         const double y = std::sin(angle);
+
         vec = Point{x, y} * abs;
     }
 

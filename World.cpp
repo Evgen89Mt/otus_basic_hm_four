@@ -2,10 +2,32 @@
 #include "Painter.hpp"
 #include <fstream>
 
+#include <iostream>
+
 // Длительность одного тика симуляции.
 // Подробнее см. update()
 // Изменять не следует
 static constexpr double timePerTick = 0.001;
+
+std::istream& operator>>(std::istream& is, Point& p){
+    return is >> p.x >> p.y;
+}
+
+std::istream& operator>>(std::istream& is, Velocity& vel){
+    double vx, vy;
+    is >> vx >> vy;
+    vel.setVector(Point{vx, vy});
+
+    return is;
+}
+
+std::istream& operator>>(std::istream& is, Color& c){
+    double red, green, blue;
+    is >> red >> green >> blue;
+    c = Color(red, green, blue);
+    
+    return is;
+}
 
 /**
  * Конструирует объект мира для симуляции
@@ -37,18 +59,21 @@ World::World(const std::string& worldFilePath) {
      * как и (red, green, blue). Опять же, можно упростить
      * этот код, научившись читать сразу Point, Color...
      */
-    double x;
 
-    double y;
+    Point point;
+    Velocity velocity;
+    Color color;
 
-    double vx;      // abs
-    double vy;      // angle
+    // double x;
+    // double y;
+    // double vx;      // abs
+    // double vy;      // angle
 
     double radius;
 
-    double red;
-    double green;
-    double blue;
+    // double red;
+    // double green;
+    // double blue;
 
     bool isCollidable;
 
@@ -57,9 +82,11 @@ World::World(const std::string& worldFilePath) {
     while (stream.peek(), stream.good()) {
         // Читаем координаты центра шара (x, y) и вектор
         // его скорости (vx, vy)
-        stream >> x >> y >> vx >> vy;
+        // stream >> x >> y >> vx >> vy;
+        stream >> point >> velocity;
         // Читаем три составляющие цвета шара
-        stream >> red >> green >> blue;
+        // stream >> red >> green >> blue;
+        stream >> color;
         // Читаем радиус шара
         stream >> radius;
         // Читаем свойство шара isCollidable, которое
@@ -78,22 +105,18 @@ World::World(const std::string& worldFilePath) {
         // добавьте его в конец контейнера вызовом
         // balls.push_back(ball);
 
-        // Point pt(x,y);
-        // Velocity vel(Point(vx,vy));
-        // Color col(red, green, blue);
+        Ball ball(point, velocity, color, radius, isCollidable);
 
-        // Ball ball(pt, vel, col, radius, isCollidable);
-
-        Ball ball(x, y, vx, vy, red, green, blue, radius, isCollidable);
-        std::cout << "x, y >> " << x << ", " << y;
-        std::cout << "vx, vy " << vx << ", "<< vy;
-        std::cout << "red, green, blue, radius " << red << ", "<< green << ", " << blue;
-        std::cout << "radius, isCollidable " << radius << ", "<< isCollidable;
+        // Ball ball(x, y, vx, vy, red, green, blue, radius, isCollidable);
+        // std::cout << "x, y >> " << x << ", " << y;
+        // std::cout << "vx, vy " << vx << ", "<< vy;
+        // std::cout << "red, green, blue, radius " << red << ", "<< green << ", " << blue;
+        // std::cout << "radius, isCollidable " << radius << ", "<< isCollidable;
 
         balls.push_back(ball);
     }
 
-    return;
+    // return;
     // show(painter);
 }
 
@@ -135,6 +158,4 @@ void World::update(double time) {
     physics.update(balls, ticks);
 }
 
-// static std::istream& operator>>(std::istream& is, Point& p){
-//     return is >> p.x >> p.y;
-// }
+

@@ -41,15 +41,15 @@ public:
     //     m_mass = (4.0/3.0) * M_PI * std::pow(m_radius, 3); 
     // }
 
-    // Ball(const Point& center, const Velocity& velocity
-    //     , const Color& color, const double radius, const bool isCol)
-    // : m_point(center)
-    // , m_velocity(velocity)
-    // , m_color(color)
-    // , m_radius(radius)
-    // , m_isCollidable(isCol){
-    //     m_mass = (4.0/3.0) * M_PI * std::pow(m_radius, 3); 
-    // }
+    Ball(const Point& center, const Velocity& velocity
+        , const Color& color, const double radius, const bool isCol)
+    : m_point(center)
+    , m_velocity(velocity)
+    , m_color(color)
+    , m_radius(radius)
+    , m_isCollidable(isCol){
+        m_mass = (4.0/3.0) * M_PI * std::pow(m_radius, 3); 
+    }
 
     Ball(const double x, const double y, const double vx, const double vy
         , const double red, const double green, const double blue

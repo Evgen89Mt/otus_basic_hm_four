@@ -26,13 +26,14 @@
 
 ./physics ./data/elephant.txt (НЕТ)
 ./physics ./Documents/cpp/home_works/otus_basic_hm_four/data/elephant.txt (НЕТ)
+
 ./physics ../data/elephant.txt
-(для начала)
+
 ./physics ../data/smile.txt
 
 1. World - класс считывает файл с данными о шарах:
-   -  Point(x, y) — начальные координаты центра шара;
-   -  vx, vy — компоненты скорости;
-   -  red, green, blue — цвет в диапазоне [0, 1];
+   -  Point(x, y) — центра шара;
+   -  vx, vy — вектор;
+   -  red, green, blue — цвет в диапазоне [0.0, 1.0];
    -  radius — радиус шара;
-   -  isCollidable — логическое значение (true или false), указывающее, участвует ли шар в столкновениях (если false — сквозь него можно проходить).
+   -  isCollidable — участвует ли шар в столкновениях.

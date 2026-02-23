@@ -32,8 +32,8 @@ Velocity Ball::getVelocity() const {
 void Ball::draw(Painter& painter) const {
     // TODO: место для доработки
 
-    std::cout << "Drawing ball at (" << m_point.x << ", " << m_point.y << ") radius " 
-    << m_radius << std::endl;
+    // std::cout << "Drawing ball at (" << m_point.x << ", " << m_point.y << ") radius " 
+    // << m_radius << std::endl;
 
     painter.draw(m_point, m_radius, m_color);
     //void draw(const Point& center, double radius, const Color& color);
