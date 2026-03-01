@@ -17,6 +17,7 @@ class World {
     Point topLeft;
     Point bottomRight;
     // Объект физического движка
+    // !!! Вот где оно
     Physics physics;
     // Контейнер с шарами
     std::vector<Ball> balls;

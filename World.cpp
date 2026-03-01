@@ -10,10 +10,12 @@
 static constexpr double timePerTick = 0.001;
 
 std::istream& operator>>(std::istream& is, Point& p){
+
     return is >> p.x >> p.y;
 }
 
 std::istream& operator>>(std::istream& is, Velocity& vel){
+
     double vx, vy;
     is >> vx >> vy;
     vel.setVector(Point{vx, vy});
@@ -22,6 +24,7 @@ std::istream& operator>>(std::istream& is, Velocity& vel){
 }
 
 std::istream& operator>>(std::istream& is, Color& c){
+
     double red, green, blue;
     is >> red >> green >> blue;
     c = Color(red, green, blue);
@@ -49,7 +52,6 @@ World::World(const std::string& worldFilePath) {
      * многократно - хорошо бы вынести это в функцию
      * и не дублировать код...
      */
-    // Тут идёт настройка окна
     stream >> topLeft.x >> topLeft.y >> bottomRight.x >> bottomRight.y;
     physics.setWorldBox(topLeft, bottomRight);
 
@@ -63,70 +65,29 @@ World::World(const std::string& worldFilePath) {
     Point point;
     Velocity velocity;
     Color color;
-
-    // double x;
-    // double y;
-    // double vx;      // abs
-    // double vy;      // angle
-
     double radius;
-
-    // double red;
-    // double green;
-    // double blue;
-
     bool isCollidable;
 
     // Здесь не хватает обработки ошибок, но на текущем
     // уровне прохождения курса нас это устраивает
     while (stream.peek(), stream.good()) {
-        // Читаем координаты центра шара (x, y) и вектор
-        // его скорости (vx, vy)
-        // stream >> x >> y >> vx >> vy;
-        stream >> point >> velocity;
-        // Читаем три составляющие цвета шара
-        // stream >> red >> green >> blue;
-        stream >> color;
-        // Читаем радиус шара
-        stream >> radius;
+
+        stream >> point >> velocity >> color >> radius 
+        >> std::boolalpha >> isCollidable;
         // Читаем свойство шара isCollidable, которое
         // указывает, требуется ли обрабатывать пересечение
         // шаров как столкновение. Если true - требуется.
         // В базовой части задания этот параметр
-        stream >> std::boolalpha >> isCollidable;
-
-        // TODO: место для доработки.
-        // Здесь не хватает самого главного - создания
-        // объекта класса Ball со свойствами, прочитанными
-        // выше, и его помещения в контейнер balls
-
-        // После того как мы каким-то образом
-        // сконструируем объект Ball ball;
-        // добавьте его в конец контейнера вызовом
-        // balls.push_back(ball);
-
         Ball ball(point, velocity, color, radius, isCollidable);
-
-        // Ball ball(x, y, vx, vy, red, green, blue, radius, isCollidable);
-        // std::cout << "x, y >> " << x << ", " << y;
-        // std::cout << "vx, vy " << vx << ", "<< vy;
-        // std::cout << "red, green, blue, radius " << red << ", "<< green << ", " << blue;
-        // std::cout << "radius, isCollidable " << radius << ", "<< isCollidable;
-
         balls.push_back(ball);
     }
-
-    // return;
-    // show(painter);
 }
 
 /// @brief Отображает состояние мира
 void World::show(Painter& painter) const {
-    // Рисуем белый прямоугольник, отображающий границу
-    // мира
+    
     painter.draw(topLeft, bottomRight, Color(1, 1, 1));
 
-    // std::cout << "World::show: " << balls.size() << " balls" << std::endl;
     // Вызываем отрисовку каждого шара
     for (const Ball& ball : balls) {
         ball.draw(painter);
